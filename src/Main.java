@@ -6,58 +6,89 @@ import java.io.IOException;
 import java.lang.String; 
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 
-class Main extends Frame{
-
-	BufferedImage imagePreview; 
+class Main extends JFrame{
+	BufferedImage imagePreview;
 	BufferedImage imageCBFilter; 
 	BufferedImage imageOutput; 
+    Button UploadBtn;
+
 	int width; //width of images
 	int height; //height of images
-	
+	int h;
 	Filters filter;
 	
+	
 	public Main() {
-		
-		try {
-			imagePreview = ImageIO.read(new File("DotImageNormal.png"));
-			imageCBFilter = ImageIO.read(new File("DotImageColorBlind.png"));
-			// imageOutput = ImageIO.read(new File("DotImageNormal.png"));
+		setTitle("IAT 455 Final");
+        setSize(1000, 1000);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+       
+        
+        h = this.height;
+  		
+  		UploadBtn = new Button("Click Here");   
+  		        
+  		JButton uploadBtn = new JButton("Click here!");
+	     uploadBtn.setBounds(40,800,100,40);
+	     uploadBtn.addActionListener(new ActionListener(){
+    	   public void actionPerformed(ActionEvent e){
+    		   uploadBtn();
+    	   }
+    	});
+        
+        JPanel panel = new JPanel();
+        uploadBtn.setBounds(40,800,100,40);
 
-			
-		} catch (IOException e) {
-			System.out.println("Cannot load the provided image");
+        panel.setLayout(null);
+        panel.add(uploadBtn);
+        
+        this.getContentPane().add(panel);
+      
 
-		} 
-
-		width = imagePreview.getWidth();// 
-		height = imagePreview.getHeight();// 
-		
-		imageOutput = filter.deuteranopiaFilter(imagePreview);
-		
-		this.setTitle("IAT 455 Final");
-		this.setVisible(true);
-
-		
-		this.addWindowListener(
-				new WindowAdapter(){//anonymous class definition
-					public void windowClosing(WindowEvent e){
-						System.exit(0);//terminate the program
-					}//end windowClosing()
-				}//end WindowAdapter
-				);//end addWindowListener
-		
 	}
 	
+	public void uploadBtn() {
+		 
+	     try {
+			imagePreview = ImageIO.read(chooseImage());
+		    } catch (IOException ex) {
+		        ex.printStackTrace();
+		    }
+	        width = imagePreview.getWidth();// 
+	  		height = imagePreview.getHeight();// 
+	  		repaint();
+	}
+	
+	public File chooseImage() {
+    
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		 File selectedFile = null;
+		jfc.setDialogTitle("Select an image");
+		jfc.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png", "bmp", "gif");
+		jfc.addChoosableFileFilter(filter);
+
+
+		int returnValue = jfc.showOpenDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			System.out.println(jfc.getSelectedFile().getPath());
+	         selectedFile = jfc.getSelectedFile();
+		}
+		return selectedFile;
+	}
 	
 	public void paint(Graphics g){
 		int w = width/5; 
 		int h = height/5;
 		
 		
-		this.setSize(w*5 +100,h*4+50);
-		
+
 		g.drawImage(imagePreview ,25,50,w, h,this);
 	    g.drawImage(imageCBFilter, 100+w, 50, w, h,this);
 	    g.drawImage(imageOutput, 200+w*2, 50, w, h,this);
