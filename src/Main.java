@@ -16,11 +16,14 @@ class Main extends Frame{
 	int width; //width of images
 	int height; //height of images
 	
+	Filters filter;
+	
 	public Main() {
 		
 		try {
 			imagePreview = ImageIO.read(new File("DotImageNormal.png"));
 			imageCBFilter = ImageIO.read(new File("DotImageColorBlind.png"));
+			// imageOutput = ImageIO.read(new File("DotImageNormal.png"));
 
 			
 		} catch (IOException e) {
@@ -30,6 +33,8 @@ class Main extends Frame{
 
 		width = imagePreview.getWidth();// 
 		height = imagePreview.getHeight();// 
+		
+		imageOutput = filter.deuteranopiaFilter(imagePreview);
 		
 		this.setTitle("IAT 455 Final");
 		this.setVisible(true);
