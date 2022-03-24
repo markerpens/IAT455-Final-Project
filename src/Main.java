@@ -20,6 +20,8 @@ class Main extends Frame{
 		
 		try {
 			imagePreview = ImageIO.read(new File("DotImageNormal.png"));
+			imageCBFilter = ImageIO.read(new File("DotImageColorBlind.png"));
+
 			
 		} catch (IOException e) {
 			System.out.println("Cannot load the provided image");
@@ -62,7 +64,7 @@ class Main extends Frame{
 	    
 	    g.drawString("Original Image", 25, 40); 
 	    g.drawString("Color Blind FIlter", 125+w, 40); 
-	    g.drawString("Color Corrected", 425+w, 40); 
+	    g.drawString("Color Corrected", 325+w, 40); 
 
 	    		    	    
 	}
