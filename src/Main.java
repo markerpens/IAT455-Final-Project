@@ -34,7 +34,9 @@ class Main extends Frame{
 		width = imagePreview.getWidth();// 
 		height = imagePreview.getHeight();// 
 		
-		imageOutput = filter.deuteranopiaFilter(imagePreview);
+		filter = new Filters();
+		
+		imageOutput = filter.colorCorrectedProtanopia(imagePreview);
 		
 		this.setTitle("IAT 455 Final");
 		this.setVisible(true);
