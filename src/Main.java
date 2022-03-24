@@ -68,7 +68,7 @@ class Main extends Frame{
 	    g.setFont(f1); 
 	    
 	    g.drawString("Original Image", 25, 40); 
-	    g.drawString("Color Blind FIlter", 125+w, 40); 
+	    g.drawString("Protanopia", 125+w, 40); 
 	    g.drawString("Color Corrected", 325+w, 40); 
 
 	    		    	    
