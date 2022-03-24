@@ -8,7 +8,7 @@ import java.lang.String;
 import javax.imageio.ImageIO;
 
 
- class Main extends Frame{
+class Main extends Frame{
 
 	BufferedImage imagePreview; 
 	BufferedImage imageCBFilter; 
@@ -29,6 +29,9 @@ import javax.imageio.ImageIO;
 		width = imagePreview.getWidth();// 
 		height = imagePreview.getHeight();// 
 		
+		this.setTitle("IAT 455 Final");
+		this.setVisible(true);
+
 		
 		this.addWindowListener(
 				new WindowAdapter(){//anonymous class definition
@@ -39,6 +42,8 @@ import javax.imageio.ImageIO;
 				);//end addWindowListener
 		
 	}
+	
+	
 	public void paint(Graphics g){
 		int w = width/5; 
 		int h = height/5;
@@ -57,7 +62,7 @@ import javax.imageio.ImageIO;
 	    
 	    g.drawString("Original Image", 25, 40); 
 	    g.drawString("Color Blind FIlter", 125+w, 40); 
-	    g.drawString("Color Corrected", 125+w, 40); 
+	    g.drawString("Color Corrected", 425+w, 40); 
 
 	    		    	    
 	}
