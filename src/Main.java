@@ -25,7 +25,7 @@ class Main extends JFrame{
 	
 	public Main() {
 		setTitle("IAT 455 Final");
-        setSize(1000, 1000);
+        setSize(700, 1000);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
        
@@ -35,7 +35,6 @@ class Main extends JFrame{
   		UploadBtn = new Button("Choose your Image");   
   		        
   		JButton uploadBtn = new JButton("Click here!");
-	     uploadBtn.setBounds(40,800,100,40);
 	     uploadBtn.addActionListener(new ActionListener(){
     	   public void actionPerformed(ActionEvent e){
     		   uploadBtn();
@@ -43,7 +42,7 @@ class Main extends JFrame{
     	});
         
         JPanel panel = new JPanel();
-        uploadBtn.setBounds(40,800,100,40);
+        uploadBtn.setBounds(40,400,100,40);
 
         panel.setLayout(null);
         panel.add(uploadBtn);
