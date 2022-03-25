@@ -32,7 +32,7 @@ class Main extends JFrame{
         
         h = this.height;
   		
-  		UploadBtn = new Button("Click Here");   
+  		UploadBtn = new Button("Choose your Image");   
   		        
   		JButton uploadBtn = new JButton("Click here!");
 	     uploadBtn.setBounds(40,800,100,40);
