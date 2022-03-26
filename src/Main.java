@@ -20,7 +20,7 @@ public class Main extends JFrame{//inheriting JFrame
 	Main(){  
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		pack();
-		JButton b=new JButton("click");//create button  
+		JButton b=new JButton("Upload Photo");//create button  
 		b.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
 		          
 		add(b);//adding button on frame  
