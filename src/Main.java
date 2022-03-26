@@ -68,31 +68,57 @@ public class Main extends JFrame{//inheriting JFrame
 	        Toolkit t=Toolkit.getDefaultToolkit();  
 	        Image i=t.getImage("p3.gif");  
 	        
-	        width = imagePreview.getWidth();// 
-	  		height = imagePreview.getHeight();// 
-	  		int new_height = height;
-	  		int new_width = width;
+		  	  try {
+		  		  //  Block of code to try
+			        width = imagePreview.getWidth();// 
+			  		height = imagePreview.getHeight();// 
+
+		  		}
+		  		catch(Exception e) {
+		  		  //  Block of code to handle errors
+		  			System.out.println("Upload a photo");
+		  		}
+		  	  
+		  		int new_height = height;
+		  		int new_width = width;
+	        
+
 
 //Resize images with the correct aspect ratio
 	  		
-	  	// first check if we need to scale width
-	  	    if (imagePreview.getWidth() > 300) {
-	  	        //scale width to fit
-	  	        width = 300;
-	  	        //scale height to maintain aspect ratio
-	  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
-	  	    }
 
-	  	    // then check if we need to scale even with the new height
-	  	    if (new_height > 300) {
-	  	        //scale height to fit instead
-	  	        new_height = 300;
-	  	        //scale width to maintain aspect ratio
-	  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
-	  	    }
 	  	    
-			
-		    
+
+	  	  try {
+	  		  //  Block of code to try
+	  	  	// first check if we need to scale width
+		  	    if (imagePreview.getWidth() > 300) {
+		  	        //scale width to fit
+		  	        width = 300;
+		  	        //scale height to maintain aspect ratio
+		  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
+		  	    }
+
+		  	    // then check if we need to scale even with the new height
+		  	    if (new_height > 300) {
+		  	        //scale height to fit instead
+		  	        new_height = 300;
+		  	        //scale width to maintain aspect ratio
+		  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
+		  	    }
+//		  	    else {
+//		  	    	new_width = 0;
+//		  	    	new_height = 0;
+//		  	    }
+	  		}
+	  		catch(Exception e) {
+	  		  //  Block of code to handle errors
+	  			System.out.println("Ensure the program knows what the image w&h are");
+	  		}
+	  	    
+	  	  
+	  	try {
+	  	  //  Block of code to try
 		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(0));
 		    imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
 			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(0));
@@ -106,6 +132,14 @@ public class Main extends JFrame{//inheriting JFrame
 			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageReColored ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageOutputFilter ,((150)-(width/2))+1175,((150)-(new_height/2))+175,width, new_height,this);
+	  	}
+	  	catch(Exception e) {
+	  	  //  Block of code to handle errors
+	  		System.out.println("Ensure the program knows what image to display!");
+	  	}
+			
+		    
+
 
 
 	    }  
