@@ -64,7 +64,8 @@ public class Main extends JFrame{//inheriting JFrame
 	  		int new_height = height;
 	  		int new_width = width;
 
-
+//Resize images with the correct aspect ratio
+	  		
 	  	// first check if we need to scale width
 	  	    if (imagePreview.getWidth() > 300) {
 	  	        //scale width to fit
@@ -81,9 +82,12 @@ public class Main extends JFrame{//inheriting JFrame
 	  	      width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
 	  	    }
 	        g.fillRect(25, 150, 350, 350);
+	        g.fillRect(400, 150, 350, 350);
+	        g.fillRect(775, 150, 350, 350);
 			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
-//			g.drawImage(imagePreview ,25,50,width, new_height,this);
-	          
+			g.drawImage(imagePreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imagePreview ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
+
 	    }  
 	public void uploadBtn() {
 	     try {
