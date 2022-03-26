@@ -1,71 +1,102 @@
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.File;
-import java.io.IOException;
+import java.awt.Graphics;
 import java.lang.String; 
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-
-class Main extends JFrame{
+public class Main extends JFrame{//inheriting JFrame  
+	JFrame f; 
 	BufferedImage imagePreview;
-	BufferedImage imageCBFilter; 
-	BufferedImage imageOutput; 
-    Button UploadBtn;
-
 	int width; //width of images
 	int height; //height of images
-	int h;
-	Filters filter;
 	
-	
-	public Main() {
-		setTitle("IAT 455 Final");
-        setSize(700, 1000);
-        setVisible(true);
+	Main(){  
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		pack();
+		JButton b=new JButton("click");//create button  
+		b.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
+		          
+		add(b);//adding button on frame  
+		
+		
+		JLabel Label1,Label2,Label3;  
+		Label1=new JLabel("Original Image");  
+		Label1.setBounds(25,50, 100,30);  
+		
+		Label2=new JLabel("Protanopia");  
+		Label2.setBounds(400,50, 100,30);  
+		
+		Label3=new JLabel("Recolored");  
+		Label3.setBounds(825,50, 100,30); 
+	    add(Label1); 
+	    add(Label2);
+	    add(Label3);  
+
+	    
+	    
+		setSize(screenSize.width,screenSize.height);
+		setLayout(null);  
+		setVisible(true);  
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-       
-        
-        h = this.height;
-  		
-  		UploadBtn = new Button("Choose your Image");   
-  		        
-  		JButton uploadBtn = new JButton("Click here!");
-	     uploadBtn.addActionListener(new ActionListener(){
-    	   public void actionPerformed(ActionEvent e){
-    		   uploadBtn();
-    	   }
-    	});
-        
-        JPanel panel = new JPanel();
-        uploadBtn.setBounds(40,400,100,40);
 
-        panel.setLayout(null);
-        panel.add(uploadBtn);
-        
-        this.getContentPane().add(panel);
-      
-
-	}
+        b.addActionListener(new ActionListener(){  
+        	public void actionPerformed(ActionEvent e){  
+        		uploadBtn();        	        
+    		}  
+	    });  
+	}  
 	
+	 public void paint(Graphics g) {  
+	        super.paint(g);
+
+	        Toolkit t=Toolkit.getDefaultToolkit();  
+	        Image i=t.getImage("p3.gif");  
+	        
+	        width = imagePreview.getWidth();// 
+	  		height = imagePreview.getHeight();// 
+	  		int new_height = height;
+	  		int new_width = width;
+
+
+	  	// first check if we need to scale width
+	  	    if (imagePreview.getWidth() > 300) {
+	  	        //scale width to fit
+	  	        width = 300;
+	  	        //scale height to maintain aspect ratio
+	  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
+	  	    }
+
+	  	    // then check if we need to scale even with the new height
+	  	    if (new_height > 300) {
+	  	        //scale height to fit instead
+	  	        new_height = 300;
+	  	        //scale width to maintain aspect ratio
+	  	      width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
+	  	    }
+	        g.fillRect(25, 150, 350, 350);
+			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
+//			g.drawImage(imagePreview ,25,50,width, new_height,this);
+	          
+	    }  
 	public void uploadBtn() {
-		 
 	     try {
 			imagePreview = ImageIO.read(chooseImage());
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
 		    }
-	        width = imagePreview.getWidth();// 
-	  		height = imagePreview.getHeight();// 
-	  		repaint();
+	   
+  		repaint();
 	}
 	
 	public File chooseImage() {
-    
+	    
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		 File selectedFile = null;
 		jfc.setDialogTitle("Select an image");
@@ -82,31 +113,7 @@ class Main extends JFrame{
 		return selectedFile;
 	}
 	
-	public void paint(Graphics g){
-		int w = width/5; 
-		int h = height/5;
-		
-		
-
-		g.drawImage(imagePreview ,25,50,w, h,this);
-	    g.drawImage(imageCBFilter, 100+w, 50, w, h,this);
-	    g.drawImage(imageOutput, 200+w*2, 50, w, h,this);
-	       
-	    
-	    g.setColor(Color.BLACK);
-	    Font f1 = new Font("Verdana", Font.PLAIN, 13);  
-	    g.setFont(f1); 
-	    
-	    g.drawString("Original Image", 25, 40); 
-	    g.drawString("Protanopia", 125+w, 40); 
-	    g.drawString("Color Corrected", 325+w, 40); 
-
-	    		    	    
+	public static void main(String[] args) {  
+		new Main();  
 	}
-	 public static void main(String[] args){
-		
-	    Main img = new Main();//instantiate this object
-	    img.repaint();//render the image
-		
-	  }
-}
+}  
