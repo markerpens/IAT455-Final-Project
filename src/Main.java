@@ -4,88 +4,137 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.String; 
-
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.Graphics;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
-
-class Main extends Frame{
-
-	BufferedImage imagePreview; 
-	BufferedImage imageCBFilter; 
-	BufferedImage imageOutput; 
+public class Main extends JFrame{//inheriting JFrame  
+	JFrame f; 
+	BufferedImage imagePreview;
+	BufferedImage imageColorBlindPreview;
+	BufferedImage imageReColored;
 	BufferedImage imageOutputFilter;
+
 	int width; //width of images
 	int height; //height of images
 	
-	Filters filter;
-
-	
-	public Main() {
+	Main(){  
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		pack();
+		JButton b=new JButton("Upload Photo");//create button  
+		b.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
+		          
+		add(b);//adding button on frame  
 		
-		try {
-			 imagePreview = ImageIO.read(new File("DotImageNormal.png"));
-			 // imagePreview = ImageIO.read(new File("testimg.png"));
-			 // imagePreview = ImageIO.read(new File("soccer-image.png"));
+		
+		JLabel Label1,Label2,Label3;  
+		Label1=new JLabel("Original Image");  
+		Label1.setBounds(25,50, 100,30);  
+		
+		Label2=new JLabel("Protanopia");  
+		Label2.setBounds(400,50, 100,30);  
+		
+		Label3=new JLabel("Recolored");  
+		Label3.setBounds(825,50, 100,30); 
+	    add(Label1); 
+	    add(Label2);
+	    add(Label3);  
 
+	    
+	    
+		setSize(screenSize.width,screenSize.height);
+		setLayout(null);  
+		setVisible(true);  
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        b.addActionListener(new ActionListener(){  
+        	public void actionPerformed(ActionEvent e){  
+        		uploadBtn();        	        
+    		}  
+	    });  
+	}  
+	
+	 public void paint(Graphics g) {  
+	        super.paint(g);
+
+	        Toolkit t=Toolkit.getDefaultToolkit();  
+	        Image i=t.getImage("p3.gif");  
+	        
+	        width = imagePreview.getWidth();// 
+	  		height = imagePreview.getHeight();// 
+	  		int new_height = height;
+	  		int new_width = width;
+
+//Resize images with the correct aspect ratio
+	  		
+	  	// first check if we need to scale width
+	  	    if (imagePreview.getWidth() > 300) {
+	  	        //scale width to fit
+	  	        width = 300;
+	  	        //scale height to maintain aspect ratio
+	  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
+	  	    }
+
+	  	    // then check if we need to scale even with the new height
+	  	    if (new_height > 300) {
+	  	        //scale height to fit instead
+	  	        new_height = 300;
+	  	        //scale width to maintain aspect ratio
+	  	      width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
+	  	    }
+	  	    
 			
-		} catch (IOException e) {
-			System.out.println("Cannot load the provided image");
+		    
+		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(0));
+		    imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
+			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(0));
+	      
+			g.fillRect(25, 150, 350, 350);
+	        g.fillRect(400, 150, 350, 350);
+	        g.fillRect(775, 150, 350, 350);
+	        g.fillRect(1150, 150, 350, 350);
 
-		} 
+			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageReColored ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageOutputFilter ,((150)-(width/2))+1175,((150)-(new_height/2))+175,width, new_height,this);
 
-		width = imagePreview.getWidth();// 
-		height = imagePreview.getHeight();// 
-		
-		// SHOW FILTER PROTANOPIA
-		imageCBFilter = Filters.filterImage(imagePreview, Filters.FILTERS.get(0));
-		imageOutput = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
-		imageOutputFilter = Filters.filterImage(imageOutput, Filters.FILTERS.get(0));
-		
-		
-		
-		this.setTitle("IAT 455 Final");
-		this.setVisible(true);
 
-		
-		this.addWindowListener(
-				new WindowAdapter(){//anonymous class definition
-					public void windowClosing(WindowEvent e){
-						System.exit(0);//terminate the program
-					}//end windowClosing()
-				}//end WindowAdapter
-				);//end addWindowListener
-		
+	    }  
+	public void uploadBtn() {
+	     try {
+			imagePreview = ImageIO.read(chooseImage());
+		    } catch (IOException ex) {
+		        ex.printStackTrace();
+		    }
+	   
+  		repaint();
 	}
 	
-	
-	public void paint(Graphics g){
-		int w = width/5; 
-		int h = height/5;
-		
-		
-		this.setSize(w*5 +200,h*4+50);
-		
-		g.drawImage(imagePreview ,25,50,w, h,this);
-	    g.drawImage(imageCBFilter, 100+w, 50, w, h,this);
-	    g.drawImage(imageOutput, 200+w*2, 50, w, h,this);
-	    g.drawImage(imageOutputFilter, 400+w*2, 50, w, h,this);
-	       
+	public File chooseImage() {
 	    
-	    g.setColor(Color.BLACK);
-	    Font f1 = new Font("Verdana", Font.PLAIN, 13);  
-	    g.setFont(f1); 
-	    
-	    g.drawString("Original Image", 25, 40); 
-	    g.drawString("Protanopia", 125+w, 40); 
-	    g.drawString("Color Corrected", 325+w, 40); 
-	    g.drawString("Color Corrected POV", 525+w, 40);
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		 File selectedFile = null;
+		jfc.setDialogTitle("Select an image");
+		jfc.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png", "bmp", "gif");
+		jfc.addChoosableFileFilter(filter);
 
-	    		    	    
+
+		int returnValue = jfc.showOpenDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			System.out.println(jfc.getSelectedFile().getPath());
+	         selectedFile = jfc.getSelectedFile();
+		}
+		return selectedFile;
 	}
-	 public static void main(String[] args){
-		
-	    Main img = new Main();//instantiate this object
-	    img.repaint();//render the image
-		
-	  }
-}
+	
+	public static void main(String[] args) {  
+		new Main();  
+	}
+}  
+
+
+
