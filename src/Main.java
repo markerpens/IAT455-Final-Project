@@ -13,6 +13,7 @@ class Main extends Frame{
 	BufferedImage imagePreview; 
 	BufferedImage imageCBFilter; 
 	BufferedImage imageOutput; 
+	BufferedImage imageOutputFilter;
 	int width; //width of images
 	int height; //height of images
 	
@@ -22,9 +23,9 @@ class Main extends Frame{
 	public Main() {
 		
 		try {
-			imagePreview = ImageIO.read(new File("DotImageNormal.png"));
-			imageCBFilter = ImageIO.read(new File("DotImageColorBlind.png"));
-			// imageOutput = ImageIO.read(new File("DotImageNormal.png"));
+			 imagePreview = ImageIO.read(new File("DotImageNormal.png"));
+			 // imagePreview = ImageIO.read(new File("testimg.png"));
+			 // imagePreview = ImageIO.read(new File("soccer-image.png"));
 
 			
 		} catch (IOException e) {
@@ -35,9 +36,12 @@ class Main extends Frame{
 		width = imagePreview.getWidth();// 
 		height = imagePreview.getHeight();// 
 		
-		// SHOW FILTER
+		// SHOW FILTER PROTANOPIA
+		imageCBFilter = Filters.filterImage(imagePreview, Filters.FILTERS.get(0));
+		imageOutput = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
+		imageOutputFilter = Filters.filterImage(imageOutput, Filters.FILTERS.get(0));
 		
-		// imageOutput = Filters.filterImage(imagePreview, filter);
+		
 		
 		this.setTitle("IAT 455 Final");
 		this.setVisible(true);
@@ -59,11 +63,12 @@ class Main extends Frame{
 		int h = height/5;
 		
 		
-		this.setSize(w*5 +100,h*4+50);
+		this.setSize(w*5 +200,h*4+50);
 		
 		g.drawImage(imagePreview ,25,50,w, h,this);
 	    g.drawImage(imageCBFilter, 100+w, 50, w, h,this);
 	    g.drawImage(imageOutput, 200+w*2, 50, w, h,this);
+	    g.drawImage(imageOutputFilter, 400+w*2, 50, w, h,this);
 	       
 	    
 	    g.setColor(Color.BLACK);
@@ -73,6 +78,7 @@ class Main extends Frame{
 	    g.drawString("Original Image", 25, 40); 
 	    g.drawString("Protanopia", 125+w, 40); 
 	    g.drawString("Color Corrected", 325+w, 40); 
+	    g.drawString("Color Corrected POV", 525+w, 40);
 
 	    		    	    
 	}
