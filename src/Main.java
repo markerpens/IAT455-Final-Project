@@ -14,6 +14,9 @@ import javax.swing.filechooser.FileSystemView;
 public class Main extends JFrame{//inheriting JFrame  
 	JFrame f; 
 	BufferedImage imagePreview;
+	BufferedImage imageColorBlindPreview;
+	BufferedImage imageReColored;
+
 	int width; //width of images
 	int height; //height of images
 	
@@ -85,8 +88,8 @@ public class Main extends JFrame{//inheriting JFrame
 	        g.fillRect(400, 150, 350, 350);
 	        g.fillRect(775, 150, 350, 350);
 			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
-			g.drawImage(imagePreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
-			g.drawImage(imagePreview ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageReColored ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
 
 	    }  
 	public void uploadBtn() {
