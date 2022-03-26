@@ -17,6 +17,7 @@ class Main extends Frame{
 	int height; //height of images
 	
 	Filters filter;
+
 	
 	public Main() {
 		
@@ -34,9 +35,9 @@ class Main extends Frame{
 		width = imagePreview.getWidth();// 
 		height = imagePreview.getHeight();// 
 		
-		filter = new Filters();
+		// SHOW FILTER
 		
-		imageOutput = filter.colorCorrectedProtanopia(imagePreview);
+		// imageOutput = Filters.filterImage(imagePreview, filter);
 		
 		this.setTitle("IAT 455 Final");
 		this.setVisible(true);
