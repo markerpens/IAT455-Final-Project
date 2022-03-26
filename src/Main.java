@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -144,8 +142,4 @@ public class Main extends JFrame{//inheriting JFrame
 	}
 }  
 
->>>>>>> Stashed changes
 
-public class Main {
-
-}
