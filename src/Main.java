@@ -11,7 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class Main extends JFrame{//inheriting JFrame  
-	JFrame f; 
+	JFrame frame; 
 	BufferedImage imagePreview;
 	BufferedImage imageColorBlindPreview;
 	BufferedImage imageReColored;
@@ -23,10 +23,10 @@ public class Main extends JFrame{//inheriting JFrame
 	Main(){  
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		pack();
-		JButton b=new JButton("Upload Photo");//create button  
-		b.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
+		JButton uploadBtn=new JButton("Upload Photo");//create button  
+		uploadBtn.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
 		          
-		add(b);//adding button on frame  
+		add(uploadBtn);//adding button on frame  
 		
 		
 		JLabel Label1,Label2,Label3,Label4;  
@@ -55,7 +55,7 @@ public class Main extends JFrame{//inheriting JFrame
 		setVisible(true);  
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        b.addActionListener(new ActionListener(){  
+        uploadBtn.addActionListener(new ActionListener(){  
         	public void actionPerformed(ActionEvent e){  
         		uploadBtn();        	        
     		}  
@@ -64,33 +64,16 @@ public class Main extends JFrame{//inheriting JFrame
 	
 	 public void paint(Graphics g) {  
 	        super.paint(g);
-
-	        Toolkit t=Toolkit.getDefaultToolkit();  
-	        Image i=t.getImage("p3.gif");  
 	        
-		  	  try {
-		  		  //  Block of code to try
-			        width = imagePreview.getWidth();// 
-			  		height = imagePreview.getHeight();// 
-
-		  		}
-		  		catch(Exception e) {
-		  		  //  Block of code to handle errors
-		  			System.out.println("Upload a photo");
-		  		}
-		  	  
-		  		int new_height = height;
-		  		int new_width = width;
-	        
-
+  		  //  Block of code to try
+	        width = imagePreview.getWidth();// 
+	  		height = imagePreview.getHeight();// 
 
 //Resize images with the correct aspect ratio
-	  		
-
-	  	    
-
-	  	  try {
-	  		  //  Block of code to try
+	  		int new_height = height;
+	  		int new_width = width;
+        
+	  
 	  	  	// first check if we need to scale width
 		  	    if (imagePreview.getWidth() > 300) {
 		  	        //scale width to fit
@@ -106,16 +89,7 @@ public class Main extends JFrame{//inheriting JFrame
 		  	        //scale width to maintain aspect ratio
 		  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
 		  	    }
-//		  	    else {
-//		  	    	new_width = 0;
-//		  	    	new_height = 0;
-//		  	    }
-	  		}
-	  		catch(Exception e) {
-	  		  //  Block of code to handle errors
-	  			System.out.println("Ensure the program knows what the image w&h are");
-	  		}
-	  	    
+	  	   
 	  	  
 	  	try {
 	  	  //  Block of code to try
@@ -155,20 +129,20 @@ public class Main extends JFrame{//inheriting JFrame
 	
 	public File chooseImage() {
 	    
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		 File selectedFile = null;
-		jfc.setDialogTitle("Select an image");
-		jfc.setAcceptAllFileFilterUsed(false);
+		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		 File fileSelected = null;
+		fileChooser.setDialogTitle("Select an image");
+		fileChooser.setAcceptAllFileFilterUsed(false);
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png", "bmp", "gif");
-		jfc.addChoosableFileFilter(filter);
+		fileChooser.addChoosableFileFilter(filter);
 
 
-		int returnValue = jfc.showOpenDialog(null);
+		int returnValue = fileChooser.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			System.out.println(jfc.getSelectedFile().getPath());
-	         selectedFile = jfc.getSelectedFile();
+			System.out.println(fileChooser.getSelectedFile().getPath());
+	         fileSelected = fileChooser.getSelectedFile();
 		}
-		return selectedFile;
+		return fileSelected;
 	}
 	
 	public static void main(String[] args) {  
