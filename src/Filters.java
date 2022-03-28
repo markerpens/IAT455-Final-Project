@@ -30,7 +30,10 @@ public class Filters {
 	static {
 //		FILTERS.add(new Filters("Normal Vision", new float[][] { { 1f, 0f, 0f }, { 0f, 1f, 0f }, { 0f, 0f, 1f } }));
 		
-		FILTERS.add(new Filters("Protanopia", new float[][] { { 0.567f, 0.433f, 0f }, { 0.558f, 0.442f, 0f }, { 0f, 0.242f, 0.758f } }));
+		FILTERS.add(new Filters("Protanopia", new float[][] { 
+			{ 0.567f, 0.433f, 0f }, { 0.558f, 0.442f, 0f }, { 0f, 0.242f, 0.758f } }));
+		
+		
 //		FILTERS.add(new Filters("Protanomaly", new float[][] { { 0.817f, 0.183f, 0f }, { 0.333f, 0.667f, 0f }, { 0f, 0.125f, 0.875f } }));
 		
 //		FILTERS.add(new Filters("Deuteranopia", new float[][] { { 0.625f, 0.375f, 0f }, { 0.458f, 0.442f, 0f }, { 0f, 0.3f, 0.7f } }));
