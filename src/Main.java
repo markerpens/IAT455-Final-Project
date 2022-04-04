@@ -93,9 +93,9 @@ public class Main extends JFrame{//inheriting JFrame
 	  	  
 	  	try {
 	  	  //  Block of code to try
-		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(0));
-		    imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
-			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(0));
+		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(2));
+		    imageReColored = Filters.filterImage(imagePreview, Filters.FIXEDFILTERS.get(2));
+			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(2));
 	      
 			g.fillRect(25, 150, 350, 350);
 	        g.fillRect(400, 150, 350, 350);

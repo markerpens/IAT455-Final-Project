@@ -78,6 +78,61 @@ public class Filters {
 		
 		return new int[] { rgba1, rgba2, rgba3 };
 	}
+	
+	
+	
+	//***************************************************************************	
+	
+
+	public String getFixedFiltersName() {
+		return name;
+	}
+	
+	public static final ArrayList<Filters> FIXEDFILTERS = new ArrayList<>();
+
+	static {
+//		FILTERS.add(new Filters("Normal Vision", new float[][] { { 1f, 0f, 0f }, { 0f, 1f, 0f }, { 0f, 0f, 1f } }));
+		
+		FIXEDFILTERS.add(new Filters("ProtanopiaFixed", new float[][] { { 0.8f, 0.1f, 0f }, { 0.8f, 0.2f, 0f }, { 0.1f, 0.6f, 0.2f } }));
+//		FILTERS.add(new Filters("Protanomaly", new float[][] { { 0.817f, 0.183f, 0f }, { 0.333f, 0.667f, 0f }, { 0f, 0.125f, 0.875f } }));
+		
+		FIXEDFILTERS.add(new Filters("DeuteranopiaFixed", new float[][] { { 0.925f, 0.075f, 0f }, { 0.558f, 0.142f, 0.2f }, { 0f, 0.8f, 0.2f } }));
+//		FILTERS.add(new Filters("Deuteranomaly", new float[][] { { 0.8f, 0.2f, 0f }, { 0.258f, 0.742f, 0f }, { 0f, 0.142f, 0.858f } }));
+		
+		FIXEDFILTERS.add(new Filters("TritanopiaFixed", new float[][] { { 0.05f, 0.95f, 0f }, { 0f, 0.133f, 0.867f }, { 0f, 0.475f, 0.525f } }));
+//		FILTERS.add(new Filters("Tritanomaly", new float[][] { { 0.967f, 0.033f, 0f }, { 0f, 0.733f, 0.267f }, { 0f, 0.183f, 0.817f } }));
+		
+		// DEUTERANOMALY, TRITANOPIA, TRITANOMALY WORKS
+	}
+	
+	public static BufferedImage colorCorrectedFilter(BufferedImage src, Filters f) {
+		BufferedImage result = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		
+		for (int i = 0; i < src.getWidth(); i++) {
+			for (int j = 0; j < src.getHeight(); j++) {
+				Color px = new Color(src.getRGB(i, j), true);
+				
+				int red = px.getRed();
+				int green = px.getGreen();
+				int blue = px.getBlue();
+				
+				red = clip(red);
+				green = clip(green);
+				blue = clip(blue);
+				
+				int alpha = px.getAlpha();
+				
+				int[] new_rgb = matrixMult(new float[] { red, green, blue }, f.imageFilter);
+				
+				Color newPixelColor = new Color(new_rgb[0], new_rgb[1], new_rgb[2], alpha);
+				
+				result.setRGB(i, j, newPixelColor.getRGB());
+			}
+		}
+		return result;
+	}
+
+
 
 //***************************************************************************	
 	
@@ -91,9 +146,18 @@ public class Filters {
         		
         		int px = src.getRGB(i, j);
         		
+        		//  Color color = new Color(px, true);
+        		
         		int red = getRed(px);
         		int green = getGreen(px);
         		int blue = (int) (getBlue(px) * 3.5);
+        	
+        		
+        		
+//        		int red = color.getRed();
+//        		int green = color.getGreen();
+//        		int blue = color.getBlue();
+
         		
 				red = clip(red);
 				green = clip(green);
@@ -105,6 +169,11 @@ public class Filters {
 				else {
 					result.setRGB(i, j, new Color(red, green, blue).getRGB());
 				}
+				
+//	            //Creating new Color object
+//	            color = new Color(red, green, blue);
+//	            //Setting new Color object to the image
+//	            result.setRGB(i, j, color.getRGB());
 
         	}
         }
