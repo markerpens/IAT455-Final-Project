@@ -36,7 +36,7 @@ public class Filters {
 		
 //		FILTERS.add(new Filters("Protanomaly", new float[][] { { 0.817f, 0.183f, 0f }, { 0.333f, 0.667f, 0f }, { 0f, 0.125f, 0.875f } }));
 		
-//		FILTERS.add(new Filters("Deuteranopia", new float[][] { { 0.625f, 0.375f, 0f }, { 0.458f, 0.442f, 0f }, { 0f, 0.3f, 0.7f } }));
+		FILTERS.add(new Filters("Deuteranopia", new float[][] { { 0.625f, 0.375f, 0f }, { 0.458f, 0.442f, 0f }, { 0f, 0.3f, 0.7f } }));
 //		FILTERS.add(new Filters("Deuteranomaly", new float[][] { { 0.8f, 0.2f, 0f }, { 0.258f, 0.742f, 0f }, { 0f, 0.142f, 0.858f } }));
 		
 //		FILTERS.add(new Filters("Tritanopia", new float[][] { { 0.95f, 0.05f, 0f }, { 0f, 0.433f, 0.567f }, { 0f, 0.475f, 0.525f } }));
