@@ -16,32 +16,88 @@ public class Main extends JFrame{//inheriting JFrame
 	BufferedImage imageColorBlindPreview;
 	BufferedImage imageReColored;
 	BufferedImage imageOutputFilter;
+	JRadioButton protanopia = new JRadioButton();
+	JRadioButton deuteranopia = new JRadioButton(); 
+	JRadioButton tritanopia = new JRadioButton();
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+	float screenWidth = screenSize.width;
+	   float screenHeight = screenSize.height;
+
+	int filterNumber;
 	int width; //width of images
 	int height; //height of images
 	
 	Main(){  
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
 		pack();
+		
+		getContentPane().setBackground(Color.BLACK);
+		
 		JButton uploadBtn=new JButton("Upload Photo");//create button  
-		uploadBtn.setBounds(screenSize.width/2-50,screenSize.height-400,100, 40);  
-		          
+		uploadBtn.setBounds(screenSize.width/2-75,screenSize.height-400,150, 40);  
+		uploadBtn.setBackground(Color.WHITE); 
+		uploadBtn.setForeground(Color.BLACK); 
+		uploadBtn.setBorderPainted(false); 
+		uploadBtn.setOpaque(true);
+		
 		add(uploadBtn);//adding button on frame  
+		
+		ButtonGroup filterRadio = new ButtonGroup();
+		
+		protanopia.setText("Protanopia");
+		protanopia.setForeground(Color.WHITE);
+
+		protanopia.setBounds(screenSize.width/2-190,screenSize.height-370,150,100);
+		protanopia.setSelected(true);
+
+
+		deuteranopia.setText("Deuteranopia");
+		deuteranopia.setBounds(screenSize.width/2-60,screenSize.height-370,150,100);  
+		deuteranopia.setForeground(Color.WHITE);
+
+
+		tritanopia.setText("Tritanopia");
+		tritanopia.setBounds(screenSize.width/2+80 ,screenSize.height-370,150,100);  
+		tritanopia.setForeground(Color.WHITE);
+
+
+
+		filterRadio.add(protanopia);
+		filterRadio.add(deuteranopia);
+		filterRadio.add(tritanopia);
+		
+		this.add(protanopia);
+		this.add(deuteranopia);
+		this.add(tritanopia);
+
+		 RadioButtonHandler roh = new RadioButtonHandler( );
+		 protanopia.addItemListener( roh );
+		 deuteranopia.addItemListener( roh );
+		 tritanopia.addItemListener( roh );
+
 		
 		
 		JLabel Label1,Label2,Label3,Label4;  
-		Label1=new JLabel("Original Image");  
-		Label1.setBounds(25,50, 100,30);  
+		Label1=new JLabel("Original Image:");  
+		Label1.setBounds((int) (screenWidth/4)- 312,50, 100,30);  
+		Label1.setForeground(Color.WHITE);
+
 		
-		Label2=new JLabel("Protanopia");  
-		Label2.setBounds(400,50, 100,30);  
+		Label2=new JLabel("Color Blind POV:");  
+		Label2.setBounds((int) (screenWidth/4) +63,50, 150,30);  
+		Label2.setForeground(Color.WHITE);
+
 		
-		Label3=new JLabel("Recolored");  
-		Label3.setBounds(775,50, 100,30); 
+		Label3=new JLabel("Recolored:");  
+		Label3.setBounds((int) (screenWidth/4) +438,50, 100,30); 
+		Label3.setForeground(Color.WHITE);
+
 		
-		Label4=new JLabel("Recolored POV");  
-		Label4.setBounds(1150,50, 100,30); 
-		
+		Label4=new JLabel("Recolored POV:");  
+		Label4.setBounds((int) (screenWidth/4) +813,50, 100,30); 
+		Label4.setForeground(Color.WHITE);
+
 	    add(Label1); 
 	    add(Label2);
 	    add(Label3);  
@@ -49,7 +105,8 @@ public class Main extends JFrame{//inheriting JFrame
 
 
 	    
-	    
+	 
+
 		setSize(screenSize.width,screenSize.height);
 		setLayout(null);  
 		setVisible(true);  
@@ -62,8 +119,40 @@ public class Main extends JFrame{//inheriting JFrame
 	    });  
 	}  
 	
+//	Updates the image based on the radio button that is selected
+	private class RadioButtonHandler implements ItemListener
+	 {
+	  public void itemStateChanged( ItemEvent ie )
+	  {
+	        if ( ie.getSource( ) == protanopia )
+	        	filterNumber = 0;
+	        else if ( ie.getSource( ) == deuteranopia )
+	        	filterNumber = 1;
+	        else if ( ie.getSource( ) == tritanopia )
+	        	filterNumber = 2;
+	  		repaint();
+
+	   }
+	 }
+
+	
 	 public void paint(Graphics g) {  
 	        super.paint(g);
+	        g.setColor(getBackground());
+	        
+	        g.setColor(Color.ORANGE);
+
+	        
+	        g.fillRect((int) (screenWidth/4)- 312, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/4) +63, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/4) +438, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/4) +813, 150, 350, 350);
+	        
+	        g.setColor(Color.BLACK);
+	        g.fillRect((int) (screenWidth/4)- 307, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/4)+68, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/4) +443, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/4) +818, 155, 340, 340);
 	        
   		  //  Block of code to try
 	        width = imagePreview.getWidth();// 
@@ -89,18 +178,16 @@ public class Main extends JFrame{//inheriting JFrame
 		  	        //scale width to maintain aspect ratio
 		  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
 		  	    }
-	  	   
+				
 	  	  
 	  	try {
-	  	  //  Block of code to try
-		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(2));
-		    imageReColored = Filters.filterImage(imagePreview, Filters.FIXEDFILTERS.get(2));
-			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(2));
+	  
+		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(filterNumber));
+		    imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
+			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(filterNumber));
+	  		
 	      
-			g.fillRect(25, 150, 350, 350);
-	        g.fillRect(400, 150, 350, 350);
-	        g.fillRect(775, 150, 350, 350);
-	        g.fillRect(1150, 150, 350, 350);
+
 
 			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
@@ -112,11 +199,10 @@ public class Main extends JFrame{//inheriting JFrame
 	  		System.out.println("Ensure the program knows what image to display!");
 	  	}
 			
-		    
-
-
 
 	    }  
+	
+	 
 	public void uploadBtn() {
 	     try {
 			imagePreview = ImageIO.read(chooseImage());
@@ -146,7 +232,9 @@ public class Main extends JFrame{//inheriting JFrame
 	}
 	
 	public static void main(String[] args) {  
+		
 		new Main();  
+		
 	}
 }  
 
