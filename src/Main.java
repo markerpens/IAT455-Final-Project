@@ -143,16 +143,16 @@ public class Main extends JFrame{//inheriting JFrame
 	        g.setColor(Color.ORANGE);
 
 	        
-	        g.fillRect((int) (screenWidth/4)- 312, 150, 350, 350);
-	        g.fillRect((int) (screenWidth/4) +63, 150, 350, 350);
-	        g.fillRect((int) (screenWidth/4) +438, 150, 350, 350);
-	        g.fillRect((int) (screenWidth/4) +813, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)- 750, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)- 375, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)+ 25, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)+ 400, 150, 350, 350);
 	        
 	        g.setColor(Color.BLACK);
-	        g.fillRect((int) (screenWidth/4)- 307, 155, 340, 340);
-	        g.fillRect((int) (screenWidth/4)+68, 155, 340, 340);
-	        g.fillRect((int) (screenWidth/4) +443, 155, 340, 340);
-	        g.fillRect((int) (screenWidth/4) +818, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)- 745, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)- 370, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)+ 30, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)+ 405, 155, 340, 340);
 	        
 	      //Resize images with the correct aspect ratio
 	  		int new_height = height;
@@ -186,10 +186,10 @@ public class Main extends JFrame{//inheriting JFrame
 			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(filterNumber));
 	  		
 	     
-			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
-			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
-			g.drawImage(imageReColored ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
-			g.drawImage(imageOutputFilter ,((150)-(width/2))+1175,((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imagePreview ,((int) (screenWidth/2)- 745)+(170-(width/2 )),((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageColorBlindPreview ,((int) (screenWidth/2)- 370)+(170-(width/2 )),((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageReColored ,((int) (screenWidth/2)+ 30)+(170-(width/2 )),((150)-(new_height/2))+175,width, new_height,this);
+			g.drawImage(imageOutputFilter ,((int) (screenWidth/2)+ 405) +(170-(width/2 )),((150)-(new_height/2))+175,width, new_height,this);
 	  		}
 	  	
 	  	catch(Exception e) {
