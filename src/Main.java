@@ -154,49 +154,47 @@ public class Main extends JFrame{//inheriting JFrame
 	        g.fillRect((int) (screenWidth/4) +443, 155, 340, 340);
 	        g.fillRect((int) (screenWidth/4) +818, 155, 340, 340);
 	        
-  		  //  Block of code to try
-	        width = imagePreview.getWidth();// 
-	  		height = imagePreview.getHeight();// 
-
-//Resize images with the correct aspect ratio
+	      //Resize images with the correct aspect ratio
 	  		int new_height = height;
 	  		int new_width = width;
-        
-	  
-	  	  	// first check if we need to scale width
-		  	    if (imagePreview.getWidth() > 300) {
-		  	        //scale width to fit
-		  	        width = 300;
-		  	        //scale height to maintain aspect ratio
-		  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
-		  	    }
+	  		
+	  		// Try-catch ensures program does not crash upon entry!
+	  		try {
+	    		//  Block of code to try
+		        width = imagePreview.getWidth();// 
+		  		height = imagePreview.getHeight();// 
 
-		  	    // then check if we need to scale even with the new height
-		  	    if (new_height > 300) {
-		  	        //scale height to fit instead
-		  	        new_height = 300;
-		  	        //scale width to maintain aspect ratio
-		  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
-		  	    }
-				
-	  	  
-	  	try {
+	  	  	// first check if we need to scale width
+	  	    if (imagePreview.getWidth() > 300) {
+	  	        //scale width to fit
+	  	        width = 300;
+	  	        //scale height to maintain aspect ratio
+	  	        new_height = (new_width * imagePreview.getHeight()) / imagePreview.getWidth();
+	  	    }
+
+	  	    // then check if we need to scale even with the new height
+	  	    if (new_height > 300) {
+	  	        //scale height to fit instead
+	  	        new_height = 300;
+	  	        //scale width to maintain aspect ratio
+	  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
+	  	    }
 	  
 		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(filterNumber));
-		    imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
+		    // imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
+		    imageReColored = Filters.colorCorrectedFilter(imagePreview, Filters.FIXEDFILTERS.get(filterNumber));
 			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(filterNumber));
 	  		
-	      
-
-
+	     
 			g.drawImage(imagePreview ,((150)-(width/2))+50,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageColorBlindPreview ,((150)-(width/2))+425,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageReColored ,((150)-(width/2))+800,((150)-(new_height/2))+175,width, new_height,this);
 			g.drawImage(imageOutputFilter ,((150)-(width/2))+1175,((150)-(new_height/2))+175,width, new_height,this);
-	  	}
+	  		}
+	  	
 	  	catch(Exception e) {
 	  	  //  Block of code to handle errors
-	  		System.out.println("Ensure the program knows what image to display!");
+	  		System.out.println("Please upload an image to display output.");
 	  	}
 			
 
