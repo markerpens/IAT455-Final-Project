@@ -71,10 +71,10 @@ public class Main extends JFrame{//inheriting JFrame
 		this.add(deuteranopia);
 		this.add(tritanopia);
 
-		 RadioButtonHandler roh = new RadioButtonHandler( );
-		 protanopia.addItemListener( roh );
-		 deuteranopia.addItemListener( roh );
-		 tritanopia.addItemListener( roh );
+		 RadioButtonHandler colorBlindButtonHandler = new RadioButtonHandler( );
+		 protanopia.addItemListener( colorBlindButtonHandler );
+		 deuteranopia.addItemListener( colorBlindButtonHandler );
+		 tritanopia.addItemListener( colorBlindButtonHandler );
 
 		
 		
@@ -122,8 +122,8 @@ public class Main extends JFrame{//inheriting JFrame
 //	Updates the image based on the radio button that is selected
 	private class RadioButtonHandler implements ItemListener
 	 {
-	  public void itemStateChanged( ItemEvent ie )
-	  {
+	  public void itemStateChanged( ItemEvent ie ){
+		  
 	        if ( ie.getSource( ) == protanopia )
 	        	filterNumber = 0;
 	        else if ( ie.getSource( ) == deuteranopia )
@@ -207,7 +207,7 @@ public class Main extends JFrame{//inheriting JFrame
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
 		    }
-	   
+	     System.out.println(filterNumber);
   		repaint();
 	}
 	
