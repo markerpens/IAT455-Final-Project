@@ -2,13 +2,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.String; 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Graphics;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import java.net.URL;
 
 public class Main extends JFrame{//inheriting JFrame  
 	JFrame frame; 
@@ -20,9 +24,10 @@ public class Main extends JFrame{//inheriting JFrame
 	JRadioButton deuteranopia = new JRadioButton(); 
 	JRadioButton tritanopia = new JRadioButton();
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
+	JTextArea imageURLString = new JTextArea("");
+	
 	float screenWidth = screenSize.width;
-	   float screenHeight = screenSize.height;
+	float screenHeight = screenSize.height;
 
 	int filterNumber;
 	int width; //width of images
@@ -34,8 +39,9 @@ public class Main extends JFrame{//inheriting JFrame
 		
 		getContentPane().setBackground(Color.BLACK);
 		
-		JButton uploadBtn=new JButton("Upload Photo");//create button  
-		uploadBtn.setBounds(screenSize.width/2-75,screenSize.height-400,150, 40);  
+		JButton uploadBtn=new JButton("Upload From Files");//create button  
+		
+		uploadBtn.setBounds(screenSize.width/2-100,screenSize.height-450,200, 40);  
 		uploadBtn.setBackground(Color.WHITE); 
 		uploadBtn.setForeground(Color.BLACK); 
 		uploadBtn.setBorderPainted(false); 
@@ -77,35 +83,59 @@ public class Main extends JFrame{//inheriting JFrame
 		 tritanopia.addItemListener( colorBlindButtonHandler );
 
 		
+		JButton urlUploadBtn=new JButton("Upload From URL");//create button  
+		urlUploadBtn.setBounds(screenSize.width/2,screenSize.height-385,160, 30);  
+		urlUploadBtn.setBackground(Color.WHITE); 
+		urlUploadBtn.setForeground(Color.BLACK); 
+		urlUploadBtn.setBorderPainted(false); 
+		urlUploadBtn.setOpaque(true);
+		add(urlUploadBtn);//adding button on frame  
 		
-		JLabel Label1,Label2,Label3,Label4;  
+		JButton downloadImage=new JButton("Save Image");//create button  
+		downloadImage.setBounds(screenSize.width/2 - 80,screenSize.height-300,160, 30);  
+		downloadImage.setBackground(Color.WHITE); 
+		downloadImage.setForeground(Color.BLACK); 
+		downloadImage.setBorderPainted(false); 
+		downloadImage.setOpaque(true);
+		add(downloadImage);//adding button on frame  
+		
+		
+		
+		imageURLString.setBounds(screenSize.width/2-220,screenSize.height-380,200,20);
+		add(imageURLString);
+		
+		JLabel Label1,Label2,Label3,Label4,Label5;  
 		Label1=new JLabel("Original Image:");  
-		Label1.setBounds((int) (screenWidth/4)- 312,50, 100,30);  
+		Label1.setBounds((int) (screenWidth/2)- 750,50, 100,30);  
 		Label1.setForeground(Color.WHITE);
 
 		
 		Label2=new JLabel("Color Blind POV:");  
-		Label2.setBounds((int) (screenWidth/4) +63,50, 150,30);  
+		Label2.setBounds((int) (screenWidth/2)- 375,50, 150,30);  
 		Label2.setForeground(Color.WHITE);
 
 		
 		Label3=new JLabel("Recolored:");  
-		Label3.setBounds((int) (screenWidth/4) +438,50, 100,30); 
+		Label3.setBounds((int) (screenWidth/2)+ 25,50, 100,30); 
 		Label3.setForeground(Color.WHITE);
 
 		
 		Label4=new JLabel("Recolored POV:");  
-		Label4.setBounds((int) (screenWidth/4) +813,50, 100,30); 
+		Label4.setBounds((int) (screenWidth/2)+ 400,50, 100,30); 
 		Label4.setForeground(Color.WHITE);
+		
+
+		Label5=new JLabel("URL:");  
+		Label5.setBounds((int) (screenSize.width/2) -220 ,screenSize.height-410, 100,30); 
+		Label5.setForeground(Color.WHITE);
 
 	    add(Label1); 
 	    add(Label2);
 	    add(Label3);  
 	    add(Label4);  
+	    add(Label5);  
 
 
-	    
-	 
 
 		setSize(screenSize.width,screenSize.height);
 		setLayout(null);  
@@ -117,6 +147,17 @@ public class Main extends JFrame{//inheriting JFrame
         		uploadBtn();        	        
     		}  
 	    });  
+        
+        urlUploadBtn.addActionListener(new ActionListener(){  
+        	public void actionPerformed(ActionEvent e){  
+        		URLUpload();        	        
+    		}  
+	    }); 
+        downloadImage.addActionListener(new ActionListener(){  
+        	public void actionPerformed(ActionEvent e){  
+        		imageDownload();        	        
+    		}  
+	    }); 
 	}  
 	
 //	Updates the image based on the radio button that is selected
@@ -200,7 +241,22 @@ public class Main extends JFrame{//inheriting JFrame
 
 	    }  
 	
-	 
+	public void URLUpload() {
+		try{
+	         String imageURL = imageURLString.getText();
+	         
+	         System.out.println("Downloading File From: " + imageURL);
+	         
+	         URL imageUrl = new URL(imageURL);
+	         imagePreview = ImageIO.read(imageUrl);;
+	         System.out.println(imageURL);
+	   		repaint();
+
+	      } catch(Exception e) {
+	         System.out.println("Exception: " + e.getMessage());
+	      }
+		
+	}
 	public void uploadBtn() {
 	     try {
 			imagePreview = ImageIO.read(chooseImage());
@@ -228,6 +284,58 @@ public class Main extends JFrame{//inheriting JFrame
 		}
 		return fileSelected;
 	}
+	
+//	public void imageDownload() {
+//		 JFileChooser getFile = new JFileChooser();
+//         getFile.setCurrentDirectory(new File(System.getProperty("user.home")));
+//         // Filter files
+//         FileNameExtensionFilter filter1 = new FileNameExtensionFilter("*.Images", "jpg",
+//                 "png");
+//         getFile.addChoosableFileFilter(filter1);
+//         int res = getFile.showSaveDialog(null);
+//         if(res == JFileChooser.APPROVE_OPTION) {
+//             selFile1 = getFile.getSelectedFile();
+//             path1 = selFile1.getAbsolutePath();
+//             label.setIcon(resize(path1));
+//             System.out.println("1st selFile1 = " + selFile1);                    
+//             try {
+//                 ImageIO.write(imageReColored, "jpg", selFile1);
+//             } catch (IOException ex) {
+//             }
+//         }
+//	}
+		
+//		JFileChooser downloadChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+//		downloadChooser.setDialogTitle("Specify a file to save");   
+//		 
+//		int userSelection = downloadChooser.showOpenDialog(null);
+//		 
+//		if (userSelection == JFileChooser.APPROVE_OPTION) {
+//		    File fileToSave = downloadChooser.getSelectedFile();
+//		    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+//			try {
+//				ImageIO.write(imageReColored,"jpg", fileToSave);
+//			} catch (IOException e) {
+//				  System.out.println("OOPSie");
+//				  e.printStackTrace();
+//			}
+//
+//		}
+
+//		JFileChooser downloadChooser = new JFileChooser();
+//		int returnVal = downloadChooser.showOpenDialog(null);
+//		if ( returnVal == JFileChooser.APPROVE_OPTION ){
+//		    File file = downloadChooser.getSelectedFile();
+//		    try {
+//				ImageIO.write(imageReColored,"jpg", file);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+			
+	
+	//}
 	
 	public static void main(String[] args) {  
 		
