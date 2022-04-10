@@ -23,6 +23,9 @@ public class Main extends JFrame{//inheriting JFrame
 	JRadioButton protanopia = new JRadioButton();
 	JRadioButton deuteranopia = new JRadioButton(); 
 	JRadioButton tritanopia = new JRadioButton();
+	JRadioButton protanopy = new JRadioButton();
+	JRadioButton deuteranopy = new JRadioButton(); 
+	JRadioButton tritanopy = new JRadioButton();
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	JTextArea imageURLString = new JTextArea("");
 	
@@ -54,18 +57,33 @@ public class Main extends JFrame{//inheriting JFrame
 		protanopia.setText("Protanopia");
 		protanopia.setForeground(Color.WHITE);
 
-		protanopia.setBounds(screenSize.width/2-190,screenSize.height-370,150,100);
+		protanopia.setBounds(screenSize.width/2-190,screenSize.height-350,150,20);
 		protanopia.setSelected(true);
 
 
 		deuteranopia.setText("Deuteranopia");
-		deuteranopia.setBounds(screenSize.width/2-60,screenSize.height-370,150,100);  
+		deuteranopia.setBounds(screenSize.width/2-60,screenSize.height-350,150,20);  
 		deuteranopia.setForeground(Color.WHITE);
 
 
 		tritanopia.setText("Tritanopia");
-		tritanopia.setBounds(screenSize.width/2+80 ,screenSize.height-370,150,100);  
+		tritanopia.setBounds(screenSize.width/2+80 ,screenSize.height-350,150,20);  
 		tritanopia.setForeground(Color.WHITE);
+		
+
+		protanopy.setText("Protanomaly");
+		protanopy.setForeground(Color.WHITE);
+		protanopy.setBounds(screenSize.width/2-190,screenSize.height-330,150,20);
+
+
+		deuteranopy.setText("Deuteranomaly");
+		deuteranopy.setBounds(screenSize.width/2-60,screenSize.height-330,150,20);  
+		deuteranopy.setForeground(Color.WHITE);
+
+
+		tritanopy.setText("Tritanomaly");
+		tritanopy.setBounds(screenSize.width/2+80 ,screenSize.height-330,150,20);  
+		tritanopy.setForeground(Color.WHITE);
 
 
 
@@ -73,14 +91,26 @@ public class Main extends JFrame{//inheriting JFrame
 		filterRadio.add(deuteranopia);
 		filterRadio.add(tritanopia);
 		
+		filterRadio.add(protanopy);
+		filterRadio.add(deuteranopy);
+		filterRadio.add(tritanopy);
+		
 		this.add(protanopia);
 		this.add(deuteranopia);
 		this.add(tritanopia);
+		
+		this.add(protanopy);
+		this.add(deuteranopy);
+		this.add(tritanopy);
 
 		 RadioButtonHandler colorBlindButtonHandler = new RadioButtonHandler( );
 		 protanopia.addItemListener( colorBlindButtonHandler );
 		 deuteranopia.addItemListener( colorBlindButtonHandler );
 		 tritanopia.addItemListener( colorBlindButtonHandler );
+		 
+		 protanopy.addItemListener( colorBlindButtonHandler );
+		 deuteranopy.addItemListener( colorBlindButtonHandler );
+		 tritanopy.addItemListener( colorBlindButtonHandler );
 
 		
 		JButton urlUploadBtn=new JButton("Upload From URL");//create button  
@@ -171,6 +201,12 @@ public class Main extends JFrame{//inheriting JFrame
 	        	filterNumber = 1;
 	        else if ( ie.getSource( ) == tritanopia )
 	        	filterNumber = 2;
+	        else if ( ie.getSource( ) == protanopy )
+	        	filterNumber = 3;
+	        else if ( ie.getSource( ) == deuteranopy )
+	        	filterNumber = 4;
+	        else if ( ie.getSource( ) == tritanopy )
+	        	filterNumber = 5;
 	  		repaint();
 
 	   }
@@ -269,76 +305,37 @@ public class Main extends JFrame{//inheriting JFrame
 	
 	public File chooseImage() {
 	    
-		JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		JFileChooser uploadFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		 File fileSelected = null;
-		fileChooser.setDialogTitle("Select an image");
-		fileChooser.setAcceptAllFileFilterUsed(false);
+		uploadFileChooser.setDialogTitle("Select an image");
+		uploadFileChooser.setAcceptAllFileFilterUsed(false);
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png", "bmp", "gif");
-		fileChooser.addChoosableFileFilter(filter);
+		uploadFileChooser.addChoosableFileFilter(filter);
 
 
-		int returnValue = fileChooser.showOpenDialog(null);
-		if (returnValue == JFileChooser.APPROVE_OPTION) {
-			System.out.println(fileChooser.getSelectedFile().getPath());
-	         fileSelected = fileChooser.getSelectedFile();
+		int uploadInterface = uploadFileChooser.showOpenDialog(null);
+		if (uploadInterface == JFileChooser.APPROVE_OPTION) {
+			System.out.println(uploadFileChooser.getSelectedFile().getPath());
+	         fileSelected = uploadFileChooser.getSelectedFile();
 		}
 		return fileSelected;
 	}
 	
-//	public void imageDownload() {
-//		 JFileChooser getFile = new JFileChooser();
-//         getFile.setCurrentDirectory(new File(System.getProperty("user.home")));
-//         // Filter files
-//         FileNameExtensionFilter filter1 = new FileNameExtensionFilter("*.Images", "jpg",
-//                 "png");
-//         getFile.addChoosableFileFilter(filter1);
-//         int res = getFile.showSaveDialog(null);
-//         if(res == JFileChooser.APPROVE_OPTION) {
-//             selFile1 = getFile.getSelectedFile();
-//             path1 = selFile1.getAbsolutePath();
-//             label.setIcon(resize(path1));
-//             System.out.println("1st selFile1 = " + selFile1);                    
-//             try {
-//                 ImageIO.write(imageReColored, "jpg", selFile1);
-//             } catch (IOException ex) {
-//             }
-//         }
-//	}
-		
-//		JFileChooser downloadChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-//		downloadChooser.setDialogTitle("Specify a file to save");   
-//		 
-//		int userSelection = downloadChooser.showOpenDialog(null);
-//		 
-//		if (userSelection == JFileChooser.APPROVE_OPTION) {
-//		    File fileToSave = downloadChooser.getSelectedFile();
-//		    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
-//			try {
-//				ImageIO.write(imageReColored,"jpg", fileToSave);
-//			} catch (IOException e) {
-//				  System.out.println("OOPSie");
-//				  e.printStackTrace();
-//			}
-//
-//		}
-
-//		JFileChooser downloadChooser = new JFileChooser();
-//		int returnVal = downloadChooser.showOpenDialog(null);
-//		if ( returnVal == JFileChooser.APPROVE_OPTION ){
-//		    File file = downloadChooser.getSelectedFile();
-//		    try {
-//				ImageIO.write(imageReColored,"jpg", file);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-			
+	public void imageDownload() {
+		 JFileChooser saveFileChooser = new JFileChooser();
+         saveFileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+         int saveInterface = saveFileChooser.showSaveDialog(null);
+         if(saveInterface == JFileChooser.APPROVE_OPTION) {
+         File outputPath = saveFileChooser.getSelectedFile();
+         System.out.println("1st selFile1 = " + outputPath);                    
+         try {
+               ImageIO.write(imageReColored, "png", outputPath);
+             } catch (IOException ex) {
+           }
+         }
+	}
 	
-	//}
-	
-	public static void main(String[] args) {  
-		
+	public static void main(String[] args) {  		
 		new Main();  
 		
 	}
