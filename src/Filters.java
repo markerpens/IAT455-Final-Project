@@ -129,51 +129,7 @@ public class Filters {
 
 //***************************************************************************	
 	
-	public BufferedImage colorCorrectedProtanopia(BufferedImage src) {
-        BufferedImage result = new BufferedImage(src.getWidth(),
-                src.getHeight(), src.getType());
-        
-        
-        for (int i = 0; i < src.getWidth(); i++) {
-        	for (int j = 0; j < src.getHeight(); j++) {
-        		
-        		int px = src.getRGB(i, j);
-        		
-        		//  Color color = new Color(px, true);
-        		
-        		int red = getRed(px);
-        		int green = getGreen(px);
-        		int blue = (int) (getBlue(px) * 3.5);
-        	
-        		
-        		
-//        		int red = color.getRed();
-//        		int green = color.getGreen();
-//        		int blue = color.getBlue();
-
-        		
-				red = clip(red);
-				green = clip(green);
-				blue = clip(blue);
-	        		
-				if (red >= green) {
-					result.setRGB(i, j, new Color(blue, green, green).getRGB());
-				}
-				else {
-					result.setRGB(i, j, new Color(red, green, blue).getRGB());
-				}
-				
-//	            //Creating new Color object
-//	            color = new Color(red, green, blue);
-//	            //Setting new Color object to the image
-//	            result.setRGB(i, j, color.getRGB());
-
-        	}
-        }
-        
-        return result;
-		
-	}
+	
 
 	
     private static int clip(int v) {
