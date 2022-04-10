@@ -16,9 +16,15 @@ public class Main extends JFrame{//inheriting JFrame
 	BufferedImage imageColorBlindPreview;
 	BufferedImage imageReColored;
 	BufferedImage imageOutputFilter;
+	
 	JRadioButton protanopia = new JRadioButton();
 	JRadioButton deuteranopia = new JRadioButton(); 
 	JRadioButton tritanopia = new JRadioButton();
+	
+//	JRadioButton protanomaly = new JRadioButton();
+//	JRadioButton deuteranomaly = new JRadioButton(); 
+//	JRadioButton tritanomaly = new JRadioButton();
+	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	float screenWidth = screenSize.width;
@@ -130,6 +136,14 @@ public class Main extends JFrame{//inheriting JFrame
 	        	filterNumber = 1;
 	        else if ( ie.getSource( ) == tritanopia )
 	        	filterNumber = 2;
+	        
+//	        else if ( ie.getSource( ) == protanomaly )
+//	        	filterNumber = 3;
+//	        else if ( ie.getSource( ) == deuteranomaly )
+//	        	filterNumber = 4;
+//	        else if ( ie.getSource( ) == tritanomaly )
+//	        	filterNumber = 5;
+
 	  		repaint();
 
 	   }
