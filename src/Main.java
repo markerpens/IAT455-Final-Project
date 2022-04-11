@@ -62,36 +62,35 @@ public class Main extends JFrame{//inheriting JFrame
 		
 		protanopia.setText("Protanopia");
 		protanopia.setForeground(Color.WHITE);
+		protanopia.setBackground(Color.BLACK);
 
-		protanopia.setBounds(screenSize.width/2-190,screenSize.height-350,150,20);
+		protanopia.setBounds(screenSize.width/2-190,screenSize.height-350,130,20);
 		protanopia.setSelected(true);
 
-
 		deuteranopia.setText("Deuteranopia");
-		deuteranopia.setBounds(screenSize.width/2-60,screenSize.height-350,150,20);  
+		deuteranopia.setBounds(screenSize.width/2-60,screenSize.height-350,130,20);  
 		deuteranopia.setForeground(Color.WHITE);
-
-
-		tritanopia.setText("Tritanopia");
-		tritanopia.setBounds(screenSize.width/2+80 ,screenSize.height-350,150,20);  
-		tritanopia.setForeground(Color.WHITE);
+		deuteranopia.setBackground(Color.BLACK);
 		
+		tritanopia.setText("Tritanopia");
+		tritanopia.setBounds(screenSize.width/2+80 ,screenSize.height-350,130,20);  
+		tritanopia.setForeground(Color.WHITE);
+		tritanopia.setBackground(Color.BLACK);
 
 		protanopy.setText("Protanomaly");
 		protanopy.setForeground(Color.WHITE);
-		protanopy.setBounds(screenSize.width/2-190,screenSize.height-330,150,20);
-
+		protanopy.setBackground(Color.BLACK);
+		protanopy.setBounds(screenSize.width/2-190,screenSize.height-330,130,20);
 
 		deuteranopy.setText("Deuteranomaly");
-		deuteranopy.setBounds(screenSize.width/2-60,screenSize.height-330,150,20);  
+		deuteranopy.setBounds(screenSize.width/2-60,screenSize.height-330,130,20);  
 		deuteranopy.setForeground(Color.WHITE);
-
+		deuteranopy.setBackground(Color.BLACK);
 
 		tritanopy.setText("Tritanomaly");
-		tritanopy.setBounds(screenSize.width/2+80 ,screenSize.height-330,150,20);  
+		tritanopy.setBounds(screenSize.width/2+80 ,screenSize.height-330,130,20);  
 		tritanopy.setForeground(Color.WHITE);
-
-
+		tritanopy.setBackground(Color.BLACK);
 
 		filterRadio.add(protanopia);
 		filterRadio.add(deuteranopia);
