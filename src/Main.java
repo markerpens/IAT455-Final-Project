@@ -217,21 +217,21 @@ public class Main extends JFrame{//inheriting JFrame
 	
 	 public void paint(Graphics g) {  
 	        super.paint(g);
-//	        g.setColor(getBackground());
-//	        
-//	        g.setColor(Color.ORANGE);
-//
-//	        
-//	        g.fillRect((int) (screenWidth/2)- 750, 150, 350, 350);
-//	        g.fillRect((int) (screenWidth/2)- 375, 150, 350, 350);
-//	        g.fillRect((int) (screenWidth/2)+ 25, 150, 350, 350);
-//	        g.fillRect((int) (screenWidth/2)+ 400, 150, 350, 350);
-//	        
-//	        g.setColor(Color.BLACK);
-//	        g.fillRect((int) (screenWidth/2)- 745, 155, 340, 340);
-//	        g.fillRect((int) (screenWidth/2)- 370, 155, 340, 340);
-//	        g.fillRect((int) (screenWidth/2)+ 30, 155, 340, 340);
-//	        g.fillRect((int) (screenWidth/2)+ 405, 155, 340, 340);
+	        g.setColor(getBackground());
+	        
+	        g.setColor(Color.ORANGE);
+
+	        
+	        g.fillRect((int) (screenWidth/2)- 750, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)- 375, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)+ 25, 150, 350, 350);
+	        g.fillRect((int) (screenWidth/2)+ 400, 150, 350, 350);
+	        
+	        g.setColor(Color.BLACK);
+	        g.fillRect((int) (screenWidth/2)- 745, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)- 370, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)+ 30, 155, 340, 340);
+	        g.fillRect((int) (screenWidth/2)+ 405, 155, 340, 340);
 	        
 	      //Resize images with the correct aspect ratio
 	  		int new_height = height;
