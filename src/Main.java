@@ -40,7 +40,7 @@ public class Main extends JFrame{//inheriting JFrame
 		
 		pack();
 		
-//		getContentPane().setBackground(Color.BLACK);
+		getContentPane().setBackground(Color.BLACK);
 		
 		JButton uploadBtn=new JButton("Upload From Files");//create button  
 		
