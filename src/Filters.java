@@ -13,6 +13,15 @@ import java.awt.color.ColorSpace;
 public class Filters {
 	
 //***************************************************************************	
+	
+	// Color Blindness Type Values and Color Matrix obtained from:
+	// ColorJack: http://web.archive.org/web/20081014161121/http://www.colorjack.com/labs/colormatrix/
+	// Coblis: https://www.color-blindness.com/coblis-color-blindness-simulator/
+	// Microsoft .NET: https://docs.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-use-a-color-matrix-to-transform-a-single-color?view=netframeworkdesktop-4.8
+
+	// Adapted from Doga Uruc's Java CB Simulator: https://github.com/aeris170/ColorBlindnessSimulator
+	// Translates ColorJack/Coblis values + color matrix
+	
 	private float[][] colorBlindFilter;
 
 	public Filters(String colorBlindnessName, float[][] filterType) {
