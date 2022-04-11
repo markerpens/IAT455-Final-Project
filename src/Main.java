@@ -292,8 +292,7 @@ public class Main extends JFrame{//inheriting JFrame
 	         System.out.println("Downloading File From: " + imageURL);
 	         
 	         URL imageUrl = new URL(imageURL);
-	         
-	         
+	     
 	         imagePreview = ImageIO.read(imageUrl);
 	         
 	         System.out.println(imageURL);
