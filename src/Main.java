@@ -37,7 +37,13 @@ public class Main extends JFrame{//inheriting JFrame
 	int height; //height of images
 	
 	Main(){  
-		
+		try {
+			imagePreview = ImageIO.read(new File("DotImageNormal.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} //1
+
 		pack();
 		
 		getContentPane().setBackground(Color.BLACK);
@@ -286,9 +292,12 @@ public class Main extends JFrame{//inheriting JFrame
 	         System.out.println("Downloading File From: " + imageURL);
 	         
 	         URL imageUrl = new URL(imageURL);
-	         imagePreview = ImageIO.read(imageUrl);;
+	         
+	         
+	         imagePreview = ImageIO.read(imageUrl);
+	         
 	         System.out.println(imageURL);
-	   		repaint();
+	   		 repaint();
 
 	      } catch(Exception e) {
 	         System.out.println("Exception: " + e.getMessage());
@@ -329,6 +338,7 @@ public class Main extends JFrame{//inheriting JFrame
          int saveInterface = saveFileChooser.showSaveDialog(null);
          
          if(saveInterface == JFileChooser.APPROVE_OPTION) {
+        	 
          File outputPath = saveFileChooser.getSelectedFile();
 //         saveFileChooser.setSelectedFile(new File("Image.png"));
 //         String withExtension = saveFileChooser.getSelectedFile().getAbsolutePath() + ".png";
