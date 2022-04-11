@@ -264,10 +264,10 @@ public class Main extends JFrame{//inheriting JFrame
 	  	      new_width = (new_height * imagePreview.getWidth()) / imagePreview.getHeight();
 	  	    }
 	  
-		    imageColorBlindPreview = Filters.filterImage(imagePreview, Filters.FILTERS.get(filterNumber));
+		    imageColorBlindPreview = Filters.colorBlindFilter(imagePreview, Filters.COLOR_BLIND_FILTERS.get(filterNumber));
 		    // imageReColored = Filters.FILTERS.get(0).colorCorrectedProtanopia(imagePreview);
-		    imageReColored = Filters.colorCorrectedFilter(imagePreview, Filters.FIXEDFILTERS.get(filterNumber));
-			imageOutputFilter = Filters.filterImage(imageReColored, Filters.FILTERS.get(filterNumber));
+		    imageReColored = Filters.colorCorrectedFilter(imagePreview, Filters.FIXED_FILTERS.get(filterNumber));
+			imageOutputFilter = Filters.colorBlindFilter(imageReColored, Filters.COLOR_BLIND_FILTERS.get(filterNumber));
 	  		
 	     
 			g.drawImage(imagePreview ,((int) (screenWidth/2)- 745)+(170-(width/2 )),((150)-(new_height/2))+175,width, new_height,this);
